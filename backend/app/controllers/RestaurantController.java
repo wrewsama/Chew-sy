@@ -51,5 +51,22 @@ public class RestaurantController extends Controller {
             return ok(Util.createResponse("Restaurant Added", true));
         }, this.ec.current());
     }
+
+    public CompletionStage<Result> deleteRestaurant(String id) {
+        return CompletableFuture.supplyAsync(() -> {
+            Restaurant restaurant = Restaurant.find.byId(id);
+            if (restaurant == null) {
+                return notFound(Util.createResponse("not found", false));
+            }
+
+            try {
+                restaurant.delete();
+            } catch (Exception e) {
+                return internalServerError(Util.createResponse("Bad request", false));
+            }
+
+            return ok(Util.createResponse("Restaurant Deleted", true));
+        }, this.ec.current());
+    }
     
 }
