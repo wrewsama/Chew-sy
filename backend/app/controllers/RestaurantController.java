@@ -46,7 +46,7 @@ public class RestaurantController extends Controller {
                 Restaurant restaurant = Json.fromJson(json, Restaurant.class);
                 restaurant.save();
             } catch (Exception e) {
-                return internalServerError(Util.createResponse("Bad request", false));
+                return internalServerError(Util.createResponse("Internal Server Error", false));
             }
             return ok(Util.createResponse("Restaurant Added", true));
         }, this.ec.current());
@@ -62,7 +62,7 @@ public class RestaurantController extends Controller {
             try {
                 restaurant.delete();
             } catch (Exception e) {
-                return internalServerError(Util.createResponse("Bad request", false));
+                return internalServerError(Util.createResponse("Internal Server Error", false));
             }
 
             return ok(Util.createResponse("Restaurant Deleted", true));
@@ -76,6 +76,11 @@ public class RestaurantController extends Controller {
                                                      .where()
                                                      .eq("sessionId", sessionId)
                                                      .findList();
+
+            // Handle the edge case where there are no restaurants added to the session.
+            if (restaurants.size() == 0) {
+                return badRequest(Util.createResponse("Please add some restaurants!", false));
+            }
             
             int randomIndex = (int) (Math.random() * restaurants.size());
             Restaurant restaurant = restaurants.get(randomIndex);
