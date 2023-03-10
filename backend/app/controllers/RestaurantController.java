@@ -69,4 +69,19 @@ public class RestaurantController extends Controller {
         }, this.ec.current());
     }
     
+    public CompletionStage<Result> getRandomRestaurant(String sessionId) {
+        return CompletableFuture.supplyAsync(() -> {
+            List<Restaurant> restaurants = Restaurant.find
+                                                     .query()
+                                                     .where()
+                                                     .eq("sessionId", sessionId)
+                                                     .findList();
+            
+            int randomIndex = (int) (Math.random() * restaurants.size());
+            Restaurant restaurant = restaurants.get(randomIndex);
+            
+            JsonNode jsonData = Json.toJson(restaurant);
+            return ok(Util.createResponse(jsonData, true));
+        }, this.ec.current());
+    }
 }
