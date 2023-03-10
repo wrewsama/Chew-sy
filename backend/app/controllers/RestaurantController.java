@@ -19,7 +19,7 @@ public class RestaurantController extends Controller {
 
     public CompletionStage<Result> getAllRestaurants(String sessionId) {
         return CompletableFuture.supplyAsync(() -> {
-            return ok(Util.createResponse("Hello World", true));
+            return ok(Util.createResponse(sessionId, true));
         });
     }
     
