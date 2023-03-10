@@ -32,9 +32,21 @@ public class SessionController extends Controller {
                 Session session = Json.fromJson(json, Session.class);
                 session.save();
             } catch (Exception e) {
-                return internalServerError(Util.createResponse(e.toString(), false));
+                return internalServerError(Util.createResponse("Internal Server Error", false));
             }
             return ok(Util.createResponse("Session Added", true));
         }, this.ec.current());
+    }
+
+    public CompletionStage<Result> getSession(String id) {
+        return CompletableFuture.supplyAsync(() -> {
+            Session session = Session.find.byId(id);
+            if (session == null) {
+                return notFound(Util.createResponse("not found", false));
+            }
+
+            JsonNode jsonObjects = Json.toJson(session);
+            return ok(Util.createResponse(jsonObjects, true));
+        }, ec.current());
     }
 }

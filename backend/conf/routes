@@ -3,7 +3,10 @@
 # ~~~~
 
 # Get all restaurants
-GET     /:sessionId                 controllers.RestaurantController.getAllRestaurants(sessionId:String)
+GET     /restaurants/:sessionId     controllers.RestaurantController.getAllRestaurants(sessionId:String)
+
+# Get session by id
+GET     /sessions/:sessionId        controllers.SessionController.getSession(sessionId:String)
 
 # Add new restaurant
 +nocsrf
