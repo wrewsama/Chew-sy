@@ -1,14 +1,29 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import randomString from 'random-string' 
+import DataService from '../api/api'
 
 export default function CreateSession() {
 	const [newName, setNewName] = useState('')
+	const sessionId:String = randomString() 
 
 	const handleNameChange = event => {
 		setNewName(event.target.value)
 	}
 
 	const handleClick = event => {
-		console.log(newName)
+		const newSession = {
+			id: sessionId,
+			name: newName
+		}
+
+		DataService.addSession(newSession)
+			.then(res => {
+				console.log(res.data)
+			})
+			.catch(e => {
+				console.error(e)
+			})
 	}
 	return (
 		<div className="container bg-dark text-light">
@@ -23,10 +38,13 @@ export default function CreateSession() {
 						   value={newName}
 						   onChange={handleNameChange} />
 				</div>
-				<button className='btn btn-light'
-						onClick={handleClick}>
-					Create
-				</button>
+				<Link to={`/${sessionId}`}> 
+					<button type='button' 
+							className='btn btn-light'
+							onClick={handleClick}>
+						Create
+					</button>
+				</Link>
 			</form>
 		</div>
 	)
