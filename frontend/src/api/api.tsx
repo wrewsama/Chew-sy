@@ -23,8 +23,31 @@ type SessionResponse = {
 	body: Session;
 }
 
+type Restaurant = {
+	id: String;
+	sessionId: String;
+	name: String;
+}
+
+type AllRestaurantsResponse = {
+	isSuccessful: boolean;
+	body: Restaurant[]
+}
+
 export default class DataService {
 	static addSession(data:Session): HttpResponse {
 		return http.post("/sessions", data)
+	}
+
+	static getSession(id:String): SessionResponse {
+		return http.get(`/sessions/${id}`)
+	}
+
+	static getAllRestaurants(id:String): AllRestaurantsResponse {
+		return http.get(`/restaurants/${id}`)
+	}
+
+	static addRestaurant(data:Restaurant): HttpResponse {
+		return http.post("/restaurants", data)
 	}
 }

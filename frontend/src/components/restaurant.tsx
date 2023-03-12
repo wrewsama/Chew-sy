@@ -1,6 +1,6 @@
 export default function Restaurant({ restaurant }) {
 	return (
-		<li className="list-group-item list-group-item-dark">
+		<li className="list-group-item">
 			{restaurant.name}
 		</li>
 	)

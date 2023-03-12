@@ -12,7 +12,7 @@ import 'bootstrap'
 function App() {
 
   return (
-    <div className="d-flex flex-column bg-dark min-vh-100">
+    <div className="d-flex flex-column min-vh-100">
 		<MainNavbar />
 		<Routes>
 			<Route path="/" element={<CreateSession />} />
