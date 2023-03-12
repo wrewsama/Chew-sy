@@ -46,6 +46,9 @@ export default function Session() {
 			.then(res => {
 				// update the list of resturants
 				getAllRestaurants()
+
+				// clear input field
+				setNewRestaurantName('')
 			})
 			.catch(e => {
 				console.error(e)
