@@ -4,17 +4,22 @@ import { v4 as uuidv4 } from 'uuid'
 import DataService from '../api/api'
 import NotFound from './not-found'
 import Restaurant from './restaurant'
+import RandomSelector from './random-selector'
 
 export default function Session() {
 	const { id } = useParams()
 	const [restaurants, setRestaurants] = useState([])
 	const [found, setFound] = useState(true)
 	const [newRestaurantName, setNewRestaurantName] = useState('')
+	const [sessionName, setSessionName] = useState('')
+	const [copied, setCopied] = useState(false)
+	const BASEURL = 'localhost:5173/'
 
 	const checkSessionExists = () => {
 		DataService.getSession(id)
 			.then(res => {
 				setFound(true)
+				setSessionName(res.data.body.name)
 			})
 			.catch(e => {
 				setFound(false)
@@ -55,6 +60,11 @@ export default function Session() {
 			})
 	}
 
+	const handleCopyButtonClick = async event => {
+		await navigator.clipboard.writeText(BASEURL + id)
+		setCopied(true)
+	}
+
 	useEffect(() => {
 		checkSessionExists()
 		getAllRestaurants()
@@ -62,6 +72,25 @@ export default function Session() {
 
 	return (
 		<div className='container'>
+			<div className='container text-center mb-5'>
+				<h3> {sessionName}'s session </h3>
+				<p> 
+					Add some restaurants to get started.
+					Share this link to let others suggest some restaurants:
+				</p>
+				<p>
+					{BASEURL + id}
+				</p>
+				<button className='btn btn-light'
+				        onClick={handleCopyButtonClick}>
+					Copy Link
+				</button>
+				{
+					copied && (
+						<span className='fw-light'> Link Copied! </span>
+					)
+				}
+			</div>
 			{
 				found && (
 					<>
@@ -88,6 +117,7 @@ export default function Session() {
 							+
 						</button>
 					</div>
+					<RandomSelector />
 					</>
 				)
 			}
