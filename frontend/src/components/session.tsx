@@ -66,7 +66,8 @@ export default function Session() {
 						{
 							restaurants.map(restaurant => {
 								return <Restaurant key={restaurant.id}
-								                   restaurant={restaurant} />
+								                   restaurant={restaurant}
+												   callback={getAllRestaurants}/>
 							})
 						}
 					</ul>
