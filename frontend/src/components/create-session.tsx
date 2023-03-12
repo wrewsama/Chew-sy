@@ -26,7 +26,7 @@ export default function CreateSession() {
 			})
 	}
 	return (
-		<div className="container bg-dark text-light">
+		<div className="container">
 			<div className="row text-center mb-5">
 				<h2> Create a new Session </h2>
 			</div>

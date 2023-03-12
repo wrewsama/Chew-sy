@@ -72,28 +72,29 @@ export default function Session() {
 
 	return (
 		<div className='container'>
-			<div className='container text-center mb-5'>
-				<h3> {sessionName}'s session </h3>
-				<p> 
-					Add some restaurants to get started.
-					Share this link to let others suggest some restaurants:
-				</p>
-				<p>
-					{BASEURL + id}
-				</p>
-				<button className='btn btn-light'
-				        onClick={handleCopyButtonClick}>
-					Copy Link
-				</button>
-				{
-					copied && (
-						<span className='fw-light'> Link Copied! </span>
-					)
-				}
-			</div>
 			{
 				found && (
 					<>
+					<div className='container text-center mb-5'>
+						<h3> {sessionName}'s session </h3>
+						<p> 
+							Add some restaurants to get started.
+							Share this link to let others suggest some restaurants:
+						</p>
+						<p>
+							{BASEURL + id}
+						</p>
+						<button className='btn btn-light'
+								onClick={handleCopyButtonClick}>
+							Copy Link
+						</button>
+						{
+							copied && (
+								<span className='fw-light'> Link Copied! </span>
+							)
+						}
+					</div>
+
 					<ul className='list-group'>
 						{
 							restaurants.map(restaurant => {
