@@ -6,9 +6,15 @@ import NotFound from './not-found'
 import Restaurant from './restaurant'
 import RandomSelector from './random-selector'
 
+interface Rest {
+	id: String;
+	sessionId: String;
+	name: String;
+}
+
 export default function Session() {
 	const { id } = useParams()
-	const [restaurants, setRestaurants] = useState([])
+	const [restaurants, setRestaurants] = useState<Rest[]>([])
 	const [found, setFound] = useState(true)
 	const [newRestaurantName, setNewRestaurantName] = useState('')
 	const [sessionName, setSessionName] = useState('')
@@ -16,7 +22,7 @@ export default function Session() {
 	const BASEURL = 'localhost:5173/'
 
 	const checkSessionExists = () => {
-		DataService.getSession(id)
+		DataService.getSession(id as string)
 			.then(res => {
 				setFound(true)
 				setSessionName(res.data.body.name)
@@ -28,7 +34,7 @@ export default function Session() {
 
 
 	const getAllRestaurants = () => {
-		DataService.getAllRestaurants(id)
+		DataService.getAllRestaurants(id as string)
 			.then(res => {
 				setRestaurants(res.data.body)
 			})
@@ -37,14 +43,14 @@ export default function Session() {
 			})
 	}
 
-	const handleNameChange = event => {
+	const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setNewRestaurantName(event.target.value)	
 	}
 
-	const handleAddButtonClick = event => {
+	const saveRestaurant = () => {
 		const newRestaurant = {
 			id: uuidv4(),
-			sessionId: id,
+			sessionId: id as string,
 			name: newRestaurantName
 		}
 		DataService.addRestaurant(newRestaurant)
@@ -60,7 +66,17 @@ export default function Session() {
 			})
 	}
 
-	const handleCopyButtonClick = async event => {
+	const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.code === 'Enter' && newRestaurantName !== '') {
+			saveRestaurant()
+		}
+	}
+
+	const handleAddButtonClick:React.MouseEventHandler<HTMLElement> = (event) => {
+		saveRestaurant()
+	}
+
+	const handleCopyButtonClick:React.MouseEventHandler<HTMLElement> = async (event) => {
 		await navigator.clipboard.writeText(BASEURL + id)
 		setCopied(true)
 	}
@@ -98,7 +114,7 @@ export default function Session() {
 					<ul className='list-group'>
 						{
 							restaurants.map(restaurant => {
-								return <Restaurant key={restaurant.id}
+								return <Restaurant key={restaurant.id as string}
 								                   restaurant={restaurant}
 												   callback={getAllRestaurants}/>
 							})
@@ -110,6 +126,7 @@ export default function Session() {
 						       className='form-control'
 							   placeholder='Suggest a restaurant'
 							   onChange={handleNameChange}
+							   onKeyDown={handleKeyPress}
 							   value={newRestaurantName} />
 
 						<button className='btn btn-outline-primary'
