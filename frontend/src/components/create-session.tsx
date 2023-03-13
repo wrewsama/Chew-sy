@@ -1,30 +1,49 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import randomString from 'random-string' 
 import DataService from '../api/api'
 
 export default function CreateSession() {
 	const [newName, setNewName] = useState('')
-	const sessionId:String = randomString() 
+	const [loading, setLoading] = useState(false)
+	const sessionId:String = randomString()
+	const navigate = useNavigate()
 
 	const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setNewName(event.target.value)
 	}
 
-	const handleClick:React.MouseEventHandler<HTMLElement> = event => {
+	const saveSession = () => {
+		if (newName == '') {
+			return
+		}
 		const newSession = {
 			id: sessionId,
 			name: newName
 		}
-
+		setLoading(true)
 		DataService.addSession(newSession)
 			.then(res => {
-				console.log(res.data)
+				setLoading(false)
+				navigate(`/${sessionId}`)
 			})
 			.catch(e => {
 				console.error(e)
 			})
 	}
+
+	const handleClick:React.MouseEventHandler<HTMLElement> = event => {
+		event.preventDefault()
+		saveSession()
+	}
+
+	const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+		if (event.code === 'Enter') {
+			event.preventDefault()
+			saveSession()
+		}
+	}
+
 	return (
 		<div className="container">
 			<div className="row text-center mb-5">
@@ -36,15 +55,27 @@ export default function CreateSession() {
 					<input type="text"
 					       className="form-control"
 						   value={newName}
-						   onChange={handleNameChange} />
+						   onChange={handleNameChange}
+						   onKeyDown={handleKeyPress} />
 				</div>
-				<Link to={`/${sessionId}`}> 
-					<button type='button' 
-							className='btn btn-light'
-							onClick={handleClick}>
-						Create
-					</button>
-				</Link>
+
+				{
+					loading ? (
+						<button className='btn btn-light'
+						        type='button'
+								disabled>
+							<span className="spinner-border spinner-border-sm"></span>
+							Loading...
+						</button>
+					) : (
+						<button type='button' 
+								className='btn btn-light'
+								onClick={handleClick}>
+							Create
+						</button>
+					)
+				}
+				
 			</form>
 		</div>
 	)
