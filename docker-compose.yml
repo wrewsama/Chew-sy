@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: chewsy-frontend
+    ports:
+      - 8080:80
+  backend:
+    build: ./backend
+    container_name: chewsy-backend
+    ports:
+      - 9000:9000
