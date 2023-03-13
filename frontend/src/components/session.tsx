@@ -19,13 +19,13 @@ export default function Session() {
 	const [newRestaurantName, setNewRestaurantName] = useState('')
 	const [sessionName, setSessionName] = useState('')
 	const [copied, setCopied] = useState(false)
-	const URL:string = window.location.href 
+	const URL:string = window.location.href
 
 	const checkSessionExists = () => {
 		DataService.getSession(id as string)
 			.then(res => {
-				setFound(true)
 				setSessionName(res.data.body.name)
+				setFound(true)
 			})
 			.catch(e => {
 				setFound(false)
