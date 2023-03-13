@@ -7,8 +7,8 @@ export default function RandomSelector() {
 	const [choice, setChoice] = useState('')
 	const [error, setError] = useState('')
 
-	const onGenButtonClick = event => {
-		DataService.getRandomRestaurant(id)
+	const onGenButtonClick: React.MouseEventHandler<HTMLElement> = event => {
+		DataService.getRandomRestaurant(id as string)
 			.then(res => {
 				setChoice(res.data.body.name)
 				setError('')

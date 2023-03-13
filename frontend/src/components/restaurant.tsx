@@ -1,24 +1,30 @@
 import { useState } from 'react'
 import DataService from '../api/api'
 
-export default function Restaurant({ restaurant, callback }) {
+type Restaurant = {
+	id: String;
+	sessionId: String;
+	name: String;
+}
+
+export default function Restaurant(props: { restaurant: Restaurant, callback: Function }) {
 	const [deleteButtonStyle, setDeleteButtonStyle] = useState({ display: 'none' })
 	const [itemClass, setItemClass] = useState('')
 
-	const handleMouseEnter = event => {
+	const handleMouseEnter: React.MouseEventHandler<HTMLElement> = event => {
 		setDeleteButtonStyle({ display: 'block' })
 		setItemClass('list-group-item-primary')
 	}
 
-	const handleMouseLeave = event => {
+	const handleMouseLeave: React.MouseEventHandler<HTMLElement> = event => {
 		setDeleteButtonStyle({ display: 'none' })
 		setItemClass('')
 	}
 
-	const handleDeleteButtonClick = event => {
-		DataService.deleteRestaurant(restaurant.id)
+	const handleDeleteButtonClick: React.MouseEventHandler<HTMLElement> = event => {
+		DataService.deleteRestaurant(props.restaurant.id)
 			.then(res => {
-				callback()
+				props.callback()
 			})
 			.catch(e => {
 				console.error(e)
@@ -29,7 +35,7 @@ export default function Restaurant({ restaurant, callback }) {
 		<li className={`list-group-item d-flex ${itemClass}`}
 		    onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}>
-			{restaurant.name}
+			{props.restaurant.name}
 
 			<button type='button'
 					style={deleteButtonStyle}

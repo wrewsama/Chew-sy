@@ -7,11 +7,11 @@ export default function CreateSession() {
 	const [newName, setNewName] = useState('')
 	const sessionId:String = randomString() 
 
-	const handleNameChange = event => {
+	const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setNewName(event.target.value)
 	}
 
-	const handleClick = event => {
+	const handleClick:React.MouseEventHandler<HTMLElement> = event => {
 		const newSession = {
 			id: sessionId,
 			name: newName

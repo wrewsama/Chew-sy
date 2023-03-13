@@ -1,7 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
 import { Routes, Route } from "react-router-dom"
-import './App.css'
 import MainNavbar from './components/navbar'
 import MainFooter from './components/footer'
 import CreateSession from './components/create-session'
