@@ -19,7 +19,7 @@ export default function Session() {
 	const [newRestaurantName, setNewRestaurantName] = useState('')
 	const [sessionName, setSessionName] = useState('')
 	const [copied, setCopied] = useState(false)
-	const BASEURL = 'localhost:5173/'
+	const URL:string = window.location.href 
 
 	const checkSessionExists = () => {
 		DataService.getSession(id as string)
@@ -77,7 +77,7 @@ export default function Session() {
 	}
 
 	const handleCopyButtonClick:React.MouseEventHandler<HTMLElement> = async (event) => {
-		await navigator.clipboard.writeText(BASEURL + id)
+		await navigator.clipboard.writeText(URL)
 		setCopied(true)
 	}
 
@@ -98,7 +98,7 @@ export default function Session() {
 							Share this link to let others suggest some restaurants:
 						</p>
 						<p>
-							{BASEURL + id}
+							{URL}
 						</p>
 						<button className='btn btn-light'
 								onClick={handleCopyButtonClick}>
