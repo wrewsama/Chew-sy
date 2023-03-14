@@ -16,16 +16,19 @@ export default function Session() {
 	const { id } = useParams()
 	const [restaurants, setRestaurants] = useState<Rest[]>([])
 	const [found, setFound] = useState(true)
+	const [loading, setLoading] = useState(false)
 	const [newRestaurantName, setNewRestaurantName] = useState('')
 	const [sessionName, setSessionName] = useState('')
 	const [copied, setCopied] = useState(false)
 	const URL:string = window.location.href
 
 	const checkSessionExists = () => {
+		setLoading(true)
 		DataService.getSession(id as string)
 			.then(res => {
 				setSessionName(res.data.body.name)
 				setFound(true)
+				setLoading(false)
 			})
 			.catch(e => {
 				setFound(false)
@@ -89,7 +92,14 @@ export default function Session() {
 	return (
 		<div className='container'>
 			{
-				found && (
+				loading && (
+					<div className='container d-flex justify-content-center'>
+						<div className='spinner-border'></div>
+					</div>
+				)
+			}
+			{
+				found && !loading && (
 					<>
 					<div className='container text-center mb-5'>
 						<h3> {sessionName}'s session </h3>
@@ -140,7 +150,7 @@ export default function Session() {
 				)
 			}
 			{
-				found || (
+				!found && !loading && (
 					<NotFound />
 				)
 			}
