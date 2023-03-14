@@ -1,4 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0m/home/drew/repos/Chew-sy/backend/app/controllers/RestaurantController.java:80:1: cannot find symbol[0m
-[0m[[0m[31merror[0m] [0m[0m  symbol:   variable restaurant[0m
-[0m[[0m[31merror[0m] [0m[0m  location: class controllers.RestaurantController[0m
-[0m[[0m[31merror[0m] [0m[0mrestaurant[0m
