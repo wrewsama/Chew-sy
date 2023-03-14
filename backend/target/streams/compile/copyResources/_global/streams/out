@@ -1,5 +1,0 @@
-[0m[[0m[0mdebug[0m] [0m[0mCopy resource mappings: [0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/drew/repos/Chew-sy/backend/conf/application.conf,/home/drew/repos/Chew-sy/backend/target/scala-2.13/classes/application.conf)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/drew/repos/Chew-sy/backend/conf/logback.xml,/home/drew/repos/Chew-sy/backend/target/scala-2.13/classes/logback.xml)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/drew/repos/Chew-sy/backend/conf/routes,/home/drew/repos/Chew-sy/backend/target/scala-2.13/classes/routes)[0m
-[0m[[0m[0mdebug[0m] [0m[0m	(/home/drew/repos/Chew-sy/backend/conf/evolutions/default/1.sql,/home/drew/repos/Chew-sy/backend/target/scala-2.13/classes/evolutions/default/1.sql)[0m
