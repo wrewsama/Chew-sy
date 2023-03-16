@@ -24,14 +24,12 @@ A web application for choosing a restaurant to eat at. Done as a take-home assig
 - [X] As a user, I want to remove restaurants so that if I change my mind, that restaurant will not get picked.
 - [X] As a member of a big team, I want to let each team member input their own choices so that we can decide what to eat even if we cannot meet up beforehand.
 - [X] As a user, I want to 'reroll' a new choice in case I change my mind again.
-- [X] As a user, I want to reset the pool of choices so that I can remove all the choices more easily.
 - [X] As a user, I want the process of inputting my team's choices and getting the recommendation to be as simple and fast as possible.
 
 ## Feature List
 - [X] Create new 'lunch session' which allows users with the link to add restaurants to the pool of choices.
 - [X] Add restaurant to pool.
 - [X] Delete restaurant from pool.
-- [X] Reset the pool.
 - [X] Get random choice from the pool of choices.
 - [X] Reroll a new choice from the pool of choices.
 
@@ -47,9 +45,9 @@ This project uses the following technologies:
 
 ## Installation
 Clone the Github repo with the command:
-'''
+```
     $ git clone git@github.com:wrewsama/Chew-sy.git
-'''
+```
 
 ## Usage
 1. Ensure you have `docker` and `docker-compose` installed.

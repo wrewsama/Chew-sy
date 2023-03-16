@@ -32,6 +32,7 @@ export default function Session() {
 			})
 			.catch(e => {
 				setFound(false)
+				setLoading(false)
 			})
 	}
 
